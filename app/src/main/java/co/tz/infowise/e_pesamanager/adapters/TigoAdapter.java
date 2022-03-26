@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 
 import co.tz.infowise.e_pesamanager.R;
@@ -39,7 +38,7 @@ public class TigoAdapter extends RecyclerView.Adapter<TigoAdapter.TigoHolder> {
     @Override
     public TigoHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.sales_orders_card_view, parent, false);
+        View view = inflater.inflate(R.layout.transactions_card_view, parent, false);
         return new TigoHolder(view, mListener);
     }
 
@@ -51,7 +50,7 @@ public class TigoAdapter extends RecyclerView.Adapter<TigoAdapter.TigoHolder> {
         holder.status.setText(dataSet.get(position).getStatus());
         holder.transactionType.setText(dataSet.get(position).getTransactionType());
         holder.id.setText(dataSet.get(position).getId().toString());
-        holder.date.setText((CharSequence) new Date());
+//        holder.date.setText((CharSequence) new Date());
 
     }
 

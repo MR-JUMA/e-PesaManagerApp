@@ -7,12 +7,6 @@ public class TigoTransactions {
     private  String status;
     private String amount;
 
-    public TigoTransactions(Long id, String transactionType, String phoneNumber, String status) {
-        this.id = id;
-        this.transactionType = transactionType;
-        this.phoneNumber = phoneNumber;
-        this.status = status;
-    }
 
     public Long getId() {
         return id;

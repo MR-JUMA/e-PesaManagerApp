@@ -1,5 +1,6 @@
 package co.tz.infowise.e_pesamanager.utils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,7 +16,7 @@ public class JSONObjectUtil {
     }
 
 
-    public static JSONObject getSearchedTigoTransactionsObject() throws JSONException {
-        return new JSONObject();
+    public static JSONArray getSearchedTigoTransactionsObject() throws JSONException {
+        return new JSONArray();
     }
 }

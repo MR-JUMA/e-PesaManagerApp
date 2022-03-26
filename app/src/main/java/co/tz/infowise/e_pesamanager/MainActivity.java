@@ -1,6 +1,8 @@
 package co.tz.infowise.e_pesamanager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
@@ -9,20 +11,30 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import co.tz.infowise.e_pesamanager.adapters.TigoAdapter;
+import co.tz.infowise.e_pesamanager.models.TigoTransactions;
 import co.tz.infowise.e_pesamanager.models.Token;
 import co.tz.infowise.e_pesamanager.utils.JSONObjectUtil;
+import co.tz.infowise.e_pesamanager.utils.JSONUtil;
 import co.tz.infowise.e_pesamanager.utils.Utility;
 
 public class MainActivity extends AppCompatActivity {
+
+    RecyclerView recyclerView;
+    TigoAdapter tigoAdapter;
+    ArrayList<TigoTransactions> tigoTransactions = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +49,16 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        recyclerView = findViewById(R.id.recyclerView);
+
+
+    }
+
+    public void buildRecyclerView(ArrayList<TigoTransactions> transactions) {
+        tigoAdapter = new TigoAdapter(getApplicationContext(),tigoTransactions);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setAdapter(tigoAdapter);
+
     }
 
     public void searchSalesOrders(Token token) throws JSONException {
@@ -44,15 +66,21 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         String url = getString(R.string.API_url_tigo_transactions);;
 
-        JSONObject json = JSONObjectUtil.getSearchedTigoTransactionsObject();
+        JSONArray json = JSONObjectUtil.getSearchedTigoTransactionsObject();
 
-        JsonObjectRequest saleOrderObjectRequest = new JsonObjectRequest(Request.Method.GET, url,json, new Response.Listener<JSONObject>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url,json, new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(JSONObject res) {
+            public void onResponse(JSONArray res) {
+
+                try {
+                    tigoTransactions= JSONUtil.loadTigoTransactionsFromJson(res);
+                    buildRecyclerView(tigoTransactions);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 System.out.println("--------------  "+res);
-//                    utility.saveSaleOrdersAccessedServer(context, true);
-//                    final ArrayList<SaleOrder> orders = jsonUtil.loadSalesOrdersFromJSONObject(res);
-//                    utility.saveSharedPreferencesSalesOrders(context.getApplicationContext(), orders, user.getUsername());
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -69,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 return params;
             }
         };
-        requestQueue.add(saleOrderObjectRequest);
+        requestQueue.add(jsonArrayRequest);
     }
 
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="API_url_user_login">http://192.168.36.199:5000/api/auth</string>
-    <string name="API_url_tigo_transactions">http://192.168.36.199:5000/api/transactions/TIGO</string>
+    <string name="API_url_user_login">http://192.168.138.199:5000/api/auth</string>
+    <string name="API_url_tigo_transactions">http://192.168.138.199:5000/api/transactions/TIGO</string>
 
 
 </resources>

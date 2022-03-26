@@ -16,6 +16,7 @@
         app:cardCornerRadius="3dp"
         app:cardElevation="5dp"
         app:cardMaxElevation="8dp"
+        app:cardBackgroundColor="@color/card"
         app:cardPreventCornerOverlap="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
