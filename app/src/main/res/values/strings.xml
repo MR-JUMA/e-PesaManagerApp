@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">e-PesaManager</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="login_error">username or password is incorrect!</string>
+
+
+    <string name="tokens_preference_file_key">co.tz.infowise.e_pesamanager.TOKENS_PREFERENCE_FILE_KEY</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>
